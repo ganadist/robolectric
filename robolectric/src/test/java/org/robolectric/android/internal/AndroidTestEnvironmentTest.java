@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.BootstrapDeferringRobolectricTestRunner;
@@ -103,9 +102,9 @@ public class AndroidTestEnvironmentTest {
   }
 
   @Test
-  public void ensureBouncyCastleInstalled() throws CertificateException {
+  public void ensureSecurityProviderInstalled() throws CertificateException {
     CertificateFactory factory = CertificateFactory.getInstance("X.509");
-    assertThat(factory.getProvider().getName()).isEqualTo(BouncyCastleProvider.PROVIDER_NAME);
+    assertThat(factory.getProvider().getName()).isEqualTo(AndroidTestEnvironment.SECURITY_PROVIDER_NAME);
   }
 
   @Test

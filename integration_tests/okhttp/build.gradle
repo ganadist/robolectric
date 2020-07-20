@@ -1,0 +1,10 @@
+apply plugin: RoboJavaModulePlugin
+
+dependencies {
+    api project(":robolectric")
+    api "junit:junit:4.12"
+    compileOnly AndroidSdk.MAX_SDK.coordinates
+
+    testRuntime AndroidSdk.MAX_SDK.coordinates
+    testImplementation "com.squareup.okhttp3:okhttp:4.8.0"
+}

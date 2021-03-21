@@ -126,6 +126,10 @@ public class SQLiteLibraryLoader {
     String arch = System.getProperty("os.arch").toLowerCase(Locale.US).replaceAll("\\W", "");
     switch (prefix) {
       case OS_MAC:
+        switch (arch) {
+          case "aarch64":
+            return "arm64";
+        }
         return null;
       case OS_LINUX:
         switch (arch) {

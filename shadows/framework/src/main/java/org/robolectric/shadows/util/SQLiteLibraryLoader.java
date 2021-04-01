@@ -123,12 +123,13 @@ public class SQLiteLibraryLoader {
   }
 
   private String getArchitectureSuffix(String prefix) {
+    // https://bitbucket.org/almworks/sqlite4java/src/7b55b3e/java/com/almworks/sqlite4java/Internal.java#lines-160:179
     String arch = System.getProperty("os.arch").toLowerCase(Locale.US).replaceAll("\\W", "");
     switch (prefix) {
       case OS_MAC:
         switch (arch) {
           case "aarch64":
-            return "arm64";
+            return "aarch64";
         }
         return null;
       case OS_LINUX:

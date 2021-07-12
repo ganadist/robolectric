@@ -725,8 +725,8 @@ public class LoadedArsc {
             // ResTable_lib_entry entry_end = entry_begin + dtohl(lib.count);
             // for (auto entry_iter = entry_begin; entry_iter != entry_end; ++entry_iter) {
             for (ResTable_lib_entry entry_iter = entry_begin;
-                entry_iter.myOffset() != entry_begin.myOffset() + dtohl(lib.count);
-                entry_iter = new ResTable_lib_entry(entry_iter.myBuf(), entry_iter.myOffset() + ResTable_lib_entry.SIZEOF)) {
+                entry_iter.myOffset() != entry_begin.myOffset() + dtohl(lib.count) * ResTable_lib_entry.SIZEOF;
+) {
               String package_name =
                   Util.ReadUtf16StringFromDevice(entry_iter.packageName,
                       entry_iter.packageName.length);
@@ -742,6 +742,12 @@ public class LoadedArsc {
               //     dtohl(entry_iter.packageId));
               loaded_package.dynamic_package_map_.add(new DynamicPackageEntry(package_name,
                   dtohl(entry_iter.packageId)));
+              try {
+                  entry_iter = new ResTable_lib_entry(entry_iter.myBuf(), entry_iter.myOffset() + ResTable_lib_entry.SIZEOF);
+              } catch (Exception e) {
+                  System.err.println("failed to create new entry " + e.getMessage());
+                  break;
+              }
             }
 
           } break;
